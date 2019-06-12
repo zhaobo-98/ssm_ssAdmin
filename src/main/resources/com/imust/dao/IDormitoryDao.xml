@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 配置到接口  接口的全限定类名-->
+<mapper namespace="com.imust.dao.IDormitoryDao">
+    <resultMap id="dormitoryMap" type="dormitory">
+        <id column="dor_id" property="dorId"/>
+        <result column="dor_name" property="dorName"/>
+        <association property="user" column="user_id" javaType="user">
+            <id property="uid" column="uid"></id>
+            <result column="username" property="username"></result>
+            <result column="name" property="name"></result>
+            <result column="password" property="password"></result>
+            <result column="status" property="status"></result>
+            <result column="create_date" property="createDate"></result>
+            <result column="gender" property="gender"></result>
+            <result column="telephone" property="telephone"></result>
+            <result column="email" property="email"></result>
+        </association>
+    </resultMap>
+    <!--配置一个保存的方法-->
+    <insert id="addDormitory" parameterType="dormitory">
+        insert into dormitory values(null,#{dorName},#{user.uid})
+    </insert>
+
+    <select id="findDormitoryList" resultMap="dormitoryMap" >
+        select *from dormitory d left join user u on d.user_id = u.uid
+    </select>
+
+    <select id="findDormitoryListById" resultMap="dormitoryMap">
+        select *from dormitory where dor_id = #{id}
+    </select>
+
+    <update id="updateDormitory" parameterType="dormitory">
+        update dormitory set dor_name = #{dorName},user_id = #{user.uid} where dor_id = #{dorId}
+    </update>
+
+    <delete id="deleteDormitoryById" parameterType="int">
+        delete from dormitory where dor_id = #{id}
+    </delete>
+</mapper>

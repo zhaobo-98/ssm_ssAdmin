@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 配置到接口  接口的全限定类名-->
+<mapper namespace="com.imust.dao.IRoomDao">
+    <!--id方法名称 resultType 返回值的类型-->
+    <select id="findRoomList"  parameterType="pageBeanUI" resultMap="roomMap">
+        SELECT *FROM room r LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id LEFT JOIN USER u ON d.user_id = u.uid
+        <where>
+            <if test="user != null">
+                <if test="user.name!= null and user.name != ''">
+                    and u.name like '%${user.name}%'
+                </if>
+                <if test="dormitory.dorId != null and dormitory.dorId != ''">
+                    and d.dor_id = #{room.dormitory.dorId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+    <!--手动封装user数据配置
+        column数据库字段
+        property 实体类中的字段
+    -->
+    <resultMap id="roomMap" type="room">
+        <id column="room_id" property="roomId" ></id>
+        <result column="room_name" property="roomName"></result>
+        <collection property="dormitory" column="room_dor_id" javaType="dormitory">
+            <id column="dor_id" property="dorId"/>
+            <result column="dor_name" property="dorName"/>
+            <association property="user" column="user_id" javaType="user">
+                <id property="uid" column="uid"></id>
+                <result column="username" property="username"></result>
+                <result column="name" property="name"></result>
+                <result column="password" property="password"></result>
+                <result column="status" property="status"></result>
+                <result column="create_date" property="createDate"></result>
+                <result column="gender" property="gender"></result>
+                <result column="telephone" property="telephone"></result>
+                <result column="email" property="email"></result>
+            </association>
+        </collection>
+    </resultMap>
+
+    <insert id="addRoom" parameterType="room" useGeneratedKeys="false" keyProperty="roomId">
+        insert into room values(null,#{roomName},#{dormitory.dorId})
+    </insert>
+
+</mapper>
