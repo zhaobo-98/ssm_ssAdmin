@@ -47,7 +47,7 @@
         </div>
         <div class="formDiv">
             <%--登陆表单--%>
-            <form action="user/loginUser" method="post">
+            <form action="${pageContext.request.contextPath}/user/loginUser" method="post">
                 <table cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                         <td colspan="2">

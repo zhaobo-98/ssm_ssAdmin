@@ -50,4 +50,11 @@ public interface IUserService {
      * @param uid
      */
     void deleteById(Integer[] uid);
+
+    /**
+     * 根据status查询username
+     * @param user
+     * @return
+     */
+    List<User> findUserListByStatus(User user);
 }

@@ -25,6 +25,14 @@
       select * from user where username=#{username} and password=#{password}
     </select>
 
+    <select id="findUserListByStatus" resultMap="userMap" parameterType="user">
+        select *from user
+        <where>
+            <if test="status != null and status == 2">
+                uid = #{uid}
+            </if>
+        </where>
+    </select>
     <!--手动封装user数据配置
         column数据库字段
         property 实体类中的字段

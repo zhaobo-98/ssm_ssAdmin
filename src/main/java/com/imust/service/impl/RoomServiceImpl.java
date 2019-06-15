@@ -1,8 +1,9 @@
 package com.imust.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.imust.dao.IBedroomDao;
 import com.imust.dao.IRoomDao;
-import com.imust.domain.PageBeanUI;
-import com.imust.domain.Room;
+import com.imust.domain.*;
 import com.imust.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,31 @@ public class RoomServiceImpl implements IRoomService {
     @Autowired
     private IRoomDao roomDao;
 
-    public List<Room> findRoomList(PageBeanUI pageBeanUI) {
-        return roomDao.findRoomList(pageBeanUI);
+    @Autowired
+    private IBedroomDao bedroomDao;
+
+    public List<Room> findRoomList(Dormitory dormitory, Integer pageNumber, Integer pageSize) {
+
+        PageHelper.startPage(pageNumber,pageSize);
+        List<Room> list = roomDao.findRoomList(dormitory);
+        return list;
     }
+
 
     @Override
     public void addRoom(Room room) {
         roomDao.addRoom(room);
+        BedRoom bedRoom = new BedRoom();
+        bedRoom.setRoom(room);
+        for (int i = 1; i <= 6; i++) {
+            bedRoom.setIsFlag("N");
+            bedRoom.setRoomBedName("0" + i);
+            bedroomDao.addBedroom(bedRoom);
+        }
+    }
+
+    @Override
+    public int findTotalRecord() {
+        return roomDao.findTotalRecord();
     }
 }

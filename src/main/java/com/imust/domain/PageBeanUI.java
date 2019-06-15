@@ -5,7 +5,6 @@ public class PageBeanUI {
     private Integer pageSize = 2;
     private User user;
     private Room room;
-    private Dormitory dormitory;
     private BedRoom bedRoom;
 
     @Override
@@ -15,18 +14,9 @@ public class PageBeanUI {
                 ", pageSize=" + pageSize +
                 ", user=" + user +
                 ", room=" + room +
-                ", dormitory=" + dormitory +
                 ", bedRoom=" + bedRoom +
                 ", startIndex=" + startIndex +
                 '}';
-    }
-
-    public Dormitory getDormitory() {
-        return dormitory;
-    }
-
-    public void setDormitory(Dormitory dormitory) {
-        this.dormitory = dormitory;
     }
 
     public BedRoom getBedRoom() {

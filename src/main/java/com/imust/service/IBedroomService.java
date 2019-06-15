@@ -7,8 +7,7 @@ public interface IBedroomService {
 
     /**
      * 添加6个床位
-     * @param room
      * @param bedRoom
      */
-    void addBedroom(Room room, BedRoom bedRoom);
+    void addBedroom(BedRoom bedRoom);
 }

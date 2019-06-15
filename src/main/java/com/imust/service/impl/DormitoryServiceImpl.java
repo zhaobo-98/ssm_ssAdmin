@@ -2,6 +2,7 @@ package com.imust.service.impl;
 
 import com.imust.dao.IDormitoryDao;
 import com.imust.domain.Dormitory;
+import com.imust.domain.User;
 import com.imust.service.IDormitoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class DormitoryServiceImpl implements IDormitoryService {
     }
 
     @Override
-    public List<Dormitory> findDormitoryList() {
-        return dormitoryDao.findDormitoryList();
+    public List<Dormitory> findDormitoryList(User user) {
+        return dormitoryDao.findDormitoryList(user);
     }
 
     @Override
@@ -38,5 +39,10 @@ public class DormitoryServiceImpl implements IDormitoryService {
         for (int i : ids) {
             dormitoryDao.deleteDormitoryById(i);
         }
+    }
+
+    @Override
+    public List<Dormitory> findDormitoryListByUser(Dormitory dormitory) {
+        return dormitoryDao.findDormitoryListByUser(dormitory);
     }
 }

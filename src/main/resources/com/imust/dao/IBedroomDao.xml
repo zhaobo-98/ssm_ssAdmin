@@ -3,25 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--namespace 配置到接口  接口的全限定类名-->
-<mapper namespace="com.imust.dao.IRoomDao">
-    <!--id方法名称 resultType 返回值的类型-->
-    <select id="findRoomList"  parameterType="dormitory" resultMap="roomMap">
-        SELECT *FROM room r LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id LEFT JOIN USER u ON d.user_id = u.uid
-        <where>
-        <if test="user != null and user.status == 2">
-            u.uid = #{uid}
-        </if>
-    </where>
-    </select>
+<mapper namespace="com.imust.dao.IBedroomDao">
 
-    <select id="findTotalRecord" resultType="int">
-       SELECT count(*)FROM room r LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id LEFT JOIN USER u ON d.user_id = u.uid
-    </select>
-    <!--手动封装user数据配置
-        column数据库字段
-        property 实体类中的字段
-    -->
-    <resultMap id="roomMap" type="room">
+    <!--<resultMap id="roomMap" type="room">
         <id column="room_id" property="roomId" ></id>
         <result column="room_name" property="roomName"></result>
         <association property="dormitory" column="room_dor_id" javaType="dormitory">
@@ -40,9 +24,9 @@
             </collection>
         </association>
     </resultMap>
-
-    <insert id="addRoom" parameterType="room" useGeneratedKeys="true" keyProperty="roomId">
-        insert into room values(null,#{roomName},#{dormitory.dorId})
+-->
+    <insert id="addBedroom" parameterType="bedroom">
+        insert into bedroom values(null,#{roomBedName},#{isFlag},null,#{room.roomId});
     </insert>
 
 </mapper>

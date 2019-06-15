@@ -51,5 +51,10 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public List<User> findUserListByStatus(User user) {
+        return userDao.findUserListByStatus(user);
+    }
+
 
 }

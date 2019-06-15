@@ -1,6 +1,7 @@
 package com.imust.dao;
 
 import com.imust.domain.Dormitory;
+import com.imust.domain.User;
 
 import java.util.List;
 
@@ -16,8 +17,9 @@ public interface IDormitoryDao {
     /**
      * 查询所有宿舍楼
      * @return
+     * @param user
      */
-    List<Dormitory> findDormitoryList();
+    List<Dormitory> findDormitoryList(User user);
 
     /**
      * 根据id查询
@@ -37,4 +39,11 @@ public interface IDormitoryDao {
      * @param i
      */
     void deleteDormitoryById(int i);
+
+    /**
+     * 查询宿舍楼
+     * @param dormitory
+     * @return
+     */
+    List<Dormitory> findDormitoryListByUser(Dormitory dormitory);
 }

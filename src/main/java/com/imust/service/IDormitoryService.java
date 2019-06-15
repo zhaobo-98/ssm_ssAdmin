@@ -1,6 +1,7 @@
 package com.imust.service;
 
 import com.imust.domain.Dormitory;
+import com.imust.domain.User;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface IDormitoryService {
      * 查询所有宿舍楼
      * @return
      */
-    List<Dormitory> findDormitoryList();
+    List<Dormitory> findDormitoryList(User user);
 
 
     /**
@@ -36,4 +37,11 @@ public interface IDormitoryService {
      * @param ids
      */
     void deleteDormitoryById(Integer[] ids);
+
+    /**
+     * 查询宿舍楼信息
+     * @param dormitory
+     * @return
+     */
+    List<Dormitory> findDormitoryListByUser(Dormitory dormitory);
 }

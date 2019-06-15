@@ -50,4 +50,11 @@ public interface IUserDao {
      * @param uid
      */
     void deleteById(int uid);
+
+    /**
+     * 根据status查询
+     * @param user
+     * @return
+     */
+    List<User> findUserListByStatus(User user);
 }

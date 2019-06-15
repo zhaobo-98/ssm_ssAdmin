@@ -24,8 +24,22 @@
         insert into dormitory values(null,#{dorName},#{user.uid})
     </insert>
 
-    <select id="findDormitoryList" resultMap="dormitoryMap" >
+    <select id="findDormitoryListByUser" parameterType="dormitory" resultMap="dormitoryMap">
         select *from dormitory d left join user u on d.user_id = u.uid
+        <where>
+            <if test="user != null">
+                d.user_id = #{user.uid}
+            </if>
+        </where>
+
+    </select>
+    <select id="findDormitoryList" resultMap="dormitoryMap" parameterType="user">
+        select *from dormitory d left join user u on d.user_id = u.uid
+        <where>
+            <if test="status != null and status == 2">
+                u.uid = #{uid}
+            </if>
+        </where>
     </select>
 
     <select id="findDormitoryListById" resultMap="dormitoryMap">

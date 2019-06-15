@@ -1,7 +1,6 @@
 package com.imust.controller;
 
 import com.imust.domain.Dormitory;
-import com.imust.domain.PageBean;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.User;
 import com.imust.service.IDormitoryService;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -23,8 +23,15 @@ public class DormitoryController {
     private IUserService userService;
 
     @RequestMapping("/showAdd")
-    public ModelAndView showAdd(ModelAndView mv, PageBeanUI pageBeanUI){
-        List<User> list = userService.findUserList(pageBeanUI);
+    public ModelAndView showAdd(ModelAndView mv, PageBeanUI pageBeanUI, HttpSession session){
+        User user = (User) session.getAttribute("loginUser");
+        List<User> list = null;
+        if ("2".equals(user.getStatus())){
+            list = userService.findUserListByStatus(user);
+        }else {
+            list = userService.findUserListByStatus(null);
+        }
+
         mv.addObject("userList",list);
         mv.setViewName("forward:/jsp/dormitory/dormitoryAdd.jsp");
         return mv;
@@ -37,8 +44,14 @@ public class DormitoryController {
         return mv;
     }
     @RequestMapping("/dormitoryList")
-    public ModelAndView dormitoryList(ModelAndView mv) {
-        List<Dormitory> dormitoryList = dormitoryService.findDormitoryList();
+    public ModelAndView dormitoryList(ModelAndView mv,HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        List<Dormitory> dormitoryList = null;
+        if ("2".equals(user.getStatus())){
+            dormitoryList = dormitoryService.findDormitoryList(user);
+        }else {
+            dormitoryList = dormitoryService.findDormitoryList(null);
+        }
         mv.addObject("dormitoryList",dormitoryList);
         mv.setViewName("forward:/jsp/dormitory/dormitory.jsp");
         return mv;
