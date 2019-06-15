@@ -34,9 +34,11 @@ public class RoomController {
         List<Room> roomList = null;
         List<Dormitory> dormitoryList = null;
         if ("2".equals(userData.getStatus())){
+            dormitory.setUser(userData);
             roomList = roomService.findRoomList(dormitory,pageNumber,pageSize);
             dormitoryList = dormitoryService.findDormitoryList(userData);
         }else {
+            dormitory.setUser(null);
             roomList = roomService.findRoomList(dormitory,pageNumber,pageSize);
             dormitoryList = dormitoryService.findDormitoryList(null);
         }

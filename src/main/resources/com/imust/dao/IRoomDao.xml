@@ -8,10 +8,10 @@
     <select id="findRoomList"  parameterType="dormitory" resultMap="roomMap">
         SELECT *FROM room r LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id LEFT JOIN USER u ON d.user_id = u.uid
         <where>
-        <if test="user != null and user.status == 2">
-            u.uid = #{uid}
-        </if>
-    </where>
+            <if test="user != null and user.status == 2">
+                u.uid = #{user.uid}
+            </if>
+        </where>
     </select>
 
     <select id="findTotalRecord" resultType="int">
