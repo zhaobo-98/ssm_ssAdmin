@@ -1,6 +1,6 @@
 package com.imust.dao;
 
-import com.imust.domain.Dormitory;
+import com.imust.domain.PageBeanUI;
 import com.imust.domain.Room;
 
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.List;
 public interface IRoomDao {
     /**
      * 查询所有宿舍
-     * @param dormitory
+     * @param pageBeanUI
      * @return
      */
-    List<Room> findRoomList(Dormitory dormitory);
+    List<Room> findRoomList(PageBeanUI pageBeanUI);
 
     /**
      * 添加宿舍信息

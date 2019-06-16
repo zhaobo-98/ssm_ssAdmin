@@ -83,21 +83,23 @@
 					  <table width="100%" border="0" cellpadding="0" cellspacing="0">
 						  <tr>
 							  <td class="font3">
-								  宿舍管理员：
-								  <select name="room.dormitory.user.name">
-								  	<option value="">请选择</option>
-								  	<c:forEach items="${dormitoryList}" var="dormitory">
-									  <option value="${dormitory.user.uid}">${dormitory.user.username}</option>
-								  	</c:forEach>
-							  </select>
+								  <c:if test="${pageBeanUI.loginUser == null}">
+									  宿舍管理员：
+									  <select name="room.dormitory.user.uid">
+										  <option value="">请选择</option>
+										  <c:forEach items="${dormitoryList}" var="dormitory">
+												  <option value="${dormitory.user.uid}" ${pageBeanUI.room.dormitory.user.uid == dormitory.user.uid ? "selected" : ""}>${dormitory.user.username}</option>
+										  </c:forEach>
+									  </select>
+								  </c:if>
 								  宿舍楼：
 									  <select name="room.dormitory.dorId" id="roomDorId">
 										  <option value="">请选择</option>
 										  <c:forEach items="${dormitoryList}" var="dormitory">
-											  <option value="${dormitory.dorId}">${dormitory.dorName}</option>
+												  <option value="${dormitory.dorId}" ${pageBeanUI.room.dormitory.dorId == dormitory.dorId ? "selected": ""}>${dormitory.dorName}</option>
 										  </c:forEach>
 									  </select>
-								  <input type="hidden" id="pageNumberId" name="pageNumber" value="1"/>
+<%--								  <input type="hidden" id="pageNumberId" name="pageNumber" value="1"/>--%>
 								  <input type="submit" value="搜索"/>
 								  <input id="delete" type="button" value="删除"/>
 							  </td>
@@ -139,7 +141,9 @@
 
 		<script>
 			function userPageMethod(pageNumber){
-				location.href="${pageContext.request.contextPath}/room/roomList?pageNum="+pageNumber;
+				<%--location.href="${pageContext.request.contextPath}/room/roomList?pageNumber="+pageNumber;--%>
+				var serialize = $('#userForm').serialize();
+				location.href="${pageContext.request.contextPath}/room/roomList?pageNumber="+pageNumber+ "&" + serialize;
 			}
 		</script>
 	  <!-- 分页标签 -->

@@ -5,28 +5,50 @@
 <!--namespace 配置到接口  接口的全限定类名-->
 <mapper namespace="com.imust.dao.IBedroomDao">
 
-    <!--<resultMap id="roomMap" type="room">
-        <id column="room_id" property="roomId" ></id>
-        <result column="room_name" property="roomName"></result>
-        <association property="dormitory" column="room_dor_id" javaType="dormitory">
-            <id column="dor_id" property="dorId"/>
-            <result column="dor_name" property="dorName"/>
-            <collection property="user" column="user_id" javaType="user">
-                <id property="uid" column="uid"></id>
-                <result column="username" property="username"></result>
-                <result column="name" property="name"></result>
-                <result column="password" property="password"></result>
-                <result column="status" property="status"></result>
-                <result column="create_date" property="createDate"></result>
-                <result column="gender" property="gender"></result>
-                <result column="telephone" property="telephone"></result>
-                <result column="email" property="email"></result>
-            </collection>
+    <resultMap id="bedRoomMap" type="bedroom">
+        <id column="bed_id" property="bedId" ></id>
+        <result column="room_bed_name" property="roomBedName"></result>
+        <result column="is_flag" property="isFlag"/>
+        <association property="student" column="stu_id" javaType="student">
+            <id property="stuId" column="stu_id"/>
+            <result column="stu_name" property="stuName"/>
+            <result column="stu_phone" property="stuPhone"/>
+            <result column="stu_family_phone" property="stuFamilyPhone"/>
+            <result column="stu_teacher_name" property="stuTeacherName"/>
+            <result column="stu_teacher_phone" property="stuTeacherPhone"/>
+            <result column="stu_gender" property="stuGender"/>
+            <result column="stu_address" property="stuAddress"/>
+            <result column="room_name" property="roomName"/>
+        </association>
+        <association property="room" column="room_id" javaType="room">
+            <id column="room_id" property="roomId" ></id>
+            <result column="room_name" property="roomName"></result>
+            <association property="dormitory" column="room_dor_id" javaType="dormitory">
+                <id column="dor_id" property="dorId"/>
+                <result column="dor_name" property="dorName"/>
+                <association property="user" javaType="user" autoMapping="true">
+                    <result column="create_date" property="createDate"></result>
+                </association>
+            </association>
         </association>
     </resultMap>
--->
+
+    <select id="findBedroomList" parameterType="pageBeanUI" resultMap="bedRoomMap">
+        SELECT *FROM bedroom b
+            LEFT JOIN room r ON b.room_id = r.room_id
+            LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id
+            LEFT JOIN student s ON b.stu_id = s.stu_id
+            LEFT JOIN USER u ON d.user_id = u.uid
+        <where>
+            <if test="loginUser != null">
+                <if test="loginUser.status != null and loginUser.status == 2">
+                    u.uid = #{loginUser.uid}
+                </if>
+            </if>
+        </where>
+    </select>
+
     <insert id="addBedroom" parameterType="bedroom">
         insert into bedroom values(null,#{roomBedName},#{isFlag},null,#{room.roomId});
     </insert>
-
 </mapper>

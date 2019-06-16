@@ -5,12 +5,21 @@
 <!--namespace 配置到接口  接口的全限定类名-->
 <mapper namespace="com.imust.dao.IRoomDao">
     <!--id方法名称 resultType 返回值的类型-->
-    <select id="findRoomList"  parameterType="dormitory" resultMap="roomMap">
+    <select id="findRoomList"  parameterType="pageBeanUI" resultMap="roomMap">
         SELECT *FROM room r LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id LEFT JOIN USER u ON d.user_id = u.uid
         <where>
-            <if test="user != null and user.status == 2">
-                u.uid = #{user.uid}
+            <if test="loginUser != null">
+                u.uid = #{loginUser.uid}
             </if>
+            <if test="room != null">
+                <if test="room.dormitory.user.uid != null">
+                    and u.uid like '%${room.dormitory.user.uid}%'
+                </if>
+                <if test="room.dormitory.dorId != null">
+                    and d.dor_id like '%${room.dormitory.dorId}%'
+                </if>
+            </if>
+
         </where>
     </select>
 

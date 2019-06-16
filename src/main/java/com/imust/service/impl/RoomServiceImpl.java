@@ -19,10 +19,10 @@ public class RoomServiceImpl implements IRoomService {
     @Autowired
     private IBedroomDao bedroomDao;
 
-    public List<Room> findRoomList(Dormitory dormitory, Integer pageNumber, Integer pageSize) {
+    public List<Room> findRoomList(PageBeanUI pageBeanUI) {
 
-        PageHelper.startPage(pageNumber,pageSize);
-        List<Room> list = roomDao.findRoomList(dormitory);
+        PageHelper.startPage(pageBeanUI.getPageNumber(),pageBeanUI.getPageSize());
+        List<Room> list = roomDao.findRoomList(pageBeanUI);
         return list;
     }
 

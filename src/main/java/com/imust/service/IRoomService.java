@@ -1,6 +1,6 @@
 package com.imust.service;
 
-import com.imust.domain.Dormitory;
+import com.imust.domain.PageBeanUI;
 import com.imust.domain.Room;
 
 import java.util.List;
@@ -9,10 +9,10 @@ public interface IRoomService {
 
     /**
      * 查询宿舍信息
-     * @param dormitory
+     * @param pageBeanUI
      * @return
      */
-    List<Room> findRoomList(Dormitory dormitory, Integer pageNumber, Integer pageSize);
+    List<Room> findRoomList(PageBeanUI pageBeanUI);
 
     /**
      * 添加宿舍

@@ -29,22 +29,23 @@ public class RoomController {
     private IBedroomService bedroomService;
 
     @RequestMapping("/roomList")
-    public ModelAndView roomList(ModelAndView mv, HttpSession session, @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNumber, @RequestParam(value = "pageSize",defaultValue = "2") Integer pageSize,Dormitory dormitory) {
+    public ModelAndView roomList(ModelAndView mv, HttpSession session, PageBeanUI pageBeanUI) {
         User userData = (User) session.getAttribute("loginUser");
         List<Room> roomList = null;
         List<Dormitory> dormitoryList = null;
         if ("2".equals(userData.getStatus())){
-            dormitory.setUser(userData);
-            roomList = roomService.findRoomList(dormitory,pageNumber,pageSize);
+            pageBeanUI.setLoginUser(userData);
+            roomList = roomService.findRoomList(pageBeanUI);
             dormitoryList = dormitoryService.findDormitoryList(userData);
         }else {
-            dormitory.setUser(null);
-            roomList = roomService.findRoomList(dormitory,pageNumber,pageSize);
+            pageBeanUI.setLoginUser(null);
+            roomList = roomService.findRoomList(pageBeanUI);
             dormitoryList = dormitoryService.findDormitoryList(null);
         }
         PageInfo<Room> pageInfo = new PageInfo<>(roomList);
         mv.addObject("dormitoryList",dormitoryList);
         mv.addObject("pageBean",pageInfo);
+        mv.addObject("pageBeanUI",pageBeanUI);
         mv.setViewName("forward:/jsp/room/room.jsp");
         return mv;
     }
