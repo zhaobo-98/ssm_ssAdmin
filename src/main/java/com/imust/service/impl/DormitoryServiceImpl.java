@@ -1,5 +1,6 @@
 package com.imust.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.imust.dao.IDormitoryDao;
 import com.imust.domain.Dormitory;
 import com.imust.domain.User;

@@ -2,24 +2,65 @@ package com.imust.domain;
 
 public class PageBeanUI {
     private Integer pageNumber =1 ;
-    private Integer pageSize = 5;
+    private Integer pageSize = 6;
     private Integer navigatePages = 10;
     private User user;
     private Room room;
     private BedRoom bedRoom;
     private User loginUser;
+    private Student student;
+    private Dormitory dormitory;
+    private Integer bedId;
+    private Integer stuId;
 
     @Override
     public String toString() {
         return "PageBeanUI{" +
                 "pageNumber=" + pageNumber +
                 ", pageSize=" + pageSize +
+                ", navigatePages=" + navigatePages +
                 ", user=" + user +
                 ", room=" + room +
                 ", bedRoom=" + bedRoom +
                 ", loginUser=" + loginUser +
+                ", student=" + student +
+                ", dormitory=" + dormitory +
+                ", bedId=" + bedId +
+                ", stuId=" + stuId +
                 ", startIndex=" + startIndex +
                 '}';
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Dormitory getDormitory() {
+        return dormitory;
+    }
+
+    public void setDormitory(Dormitory dormitory) {
+        this.dormitory = dormitory;
+    }
+
+    public Integer getBedId() {
+        return bedId;
+    }
+
+    public void setBedId(Integer bedId) {
+        this.bedId = bedId;
+    }
+
+    public Integer getStuId() {
+        return stuId;
+    }
+
+    public void setStuId(Integer stuId) {
+        this.stuId = stuId;
     }
 
     public Integer getNavigatePages() {

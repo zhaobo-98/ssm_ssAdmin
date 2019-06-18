@@ -48,31 +48,31 @@
 		    	<table>
 		    		<tr>
 		    			<td class="font3 fftd">&nbsp;宿舍楼：
-							<input name="bedId" type="hidden" value="${bedRoom.bedId}" size="20" />
+							<input name="bedRoom.bedId" type="hidden" value="${bedRoom.bedId}" size="20" />
 							<input name="room.bedRoom.dormitory.dorId" id="dorId" value="${bedRoom.room.dormitory.dorName}" size="20" />
-							<input name="isFlag" type="hidden" id="isFlag" value="Y" size="20" />
+							<input name="bedRoom.isFlag" type="hidden" id="isFlag" value="Y" size="20" />
 						</td>
 
 		    			<td class="font3 fftd">宿&nbsp;&nbsp;舍：<input type="text" name="bedRoom.room.roomName" id="roomName" size="20" value="${bedRoom.room.roomName}"/>
-							<input type="hidden"  name="room.roomId" size="20" ${bedRoom.room.roomId}/>
+							<input type="hidden"  name="bedRoom.room.roomId" size="20" ${bedRoom.room.roomId}/>
 						</td>
 		    		</tr>
 		    			
 		    		<tr>
-		    			<td class="font3 fftd">姓&nbsp;&nbsp;名：<input name="student.stuName" id="stuName" size="20" /></td>
-		    			<td class="font3 fftd">电&nbsp;&nbsp;话：<input name="student.stuPhone" id="stuPhone" size="20" /></td>
+		    			<td class="font3 fftd">姓&nbsp;&nbsp;名：<input name="bedRoom.student.stuName" id="stuName" size="20" /></td>
+		    			<td class="font3 fftd">电&nbsp;&nbsp;话：<input name="bedRoom.student.stuPhone" id="stuPhone" size="20" /></td>
 		    		</tr>
 					<tr>
-						<td class="font3 fftd">家庭电话：<input name="student.stuFamilyPhone" id="stuFamilyPhone" size="20" /></td>
-						<td class="font3 fftd">学员导师：<input name="student.stuTeacherName" id="stuTeacherName" size="20" /></td>
+						<td class="font3 fftd">家庭电话：<input name="bedRoom.student.stuFamilyPhone" id="stuFamilyPhone" size="20" /></td>
+						<td class="font3 fftd">学员导师：<input name="bedRoom.student.stuTeacherName" id="stuTeacherName" size="20" /></td>
 					</tr>
 					<tr>
-						<td class="font3 fftd">导师电话：<input name="student.stuTeacherPhone" id="stuTeacherPhone" size="20" /></td>
-						<td class="font3 fftd">家庭住址：<input name="student.stuAddress" id="stuAddress" size="20" /></td>
+						<td class="font3 fftd">导师电话：<input name="bedRoom.student.stuTeacherPhone" id="stuTeacherPhone" size="20" /></td>
+						<td class="font3 fftd">家庭住址：<input name="bedRoom.student.stuAddress" id="stuAddress" size="20" /></td>
 					</tr>
 					<tr>
 						<td class="font3 fftd">性&nbsp;&nbsp;别：
-							<select name ="student.stuGender" id="stuGender" >
+							<select name ="bedRoom.student.stuGender" id="stuGender" >
 								<option value="">请选择</option>
 								<option value="男">男</option>
 								<option value="女">女</option>

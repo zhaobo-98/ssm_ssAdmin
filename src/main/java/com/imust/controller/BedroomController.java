@@ -6,7 +6,9 @@ import com.imust.service.IBedroomService;
 import com.imust.service.IDormitoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ public class BedroomController {
     public ModelAndView bedRoomList(ModelAndView mv, HttpSession session, PageBeanUI pageBeanUI){
         User userData = (User) session.getAttribute("loginUser");
         List<Dormitory> dormitoryList = null;
+        System.err.println(pageBeanUI);
         if ("2".equals(userData.getStatus())){
             pageBeanUI.setLoginUser(userData);
             dormitoryList = dormitoryService.findDormitoryList(userData);
@@ -37,5 +40,47 @@ public class BedroomController {
         mv.addObject("dormitoryList",dormitoryList);
         mv.setViewName("forward:/jsp/bedroom/bedroom.jsp");
         return mv;
+    }
+
+    /**
+     * 跳转入住页面
+     * @param mv
+     * @return
+     */
+    @RequestMapping("/inRoomUI")
+    public ModelAndView inRoomUI(ModelAndView mv,HttpSession session,PageBeanUI pageBeanUI,Integer bedId){
+        User userData = (User) session.getAttribute("loginUser");
+        BedRoom bedRoom = new BedRoom();
+        bedRoom.setBedId(bedId);
+        pageBeanUI.setBedRoom(bedRoom);
+        if ("2".equals(userData.getStatus())){
+            pageBeanUI.setLoginUser(userData);
+        }else {
+            pageBeanUI.setLoginUser(null);
+        }
+        BedRoom bedRoomData = bedroomService.findBedroomById(pageBeanUI);
+        mv.addObject("bedRoom",bedRoomData);
+        mv.setViewName("forward:/jsp/bedroom/showAddBedRoom.jsp");
+        return mv;
+    }
+
+    @RequestMapping("/inRoom")
+    public ModelAndView inRoom(ModelAndView mv,PageBeanUI pageBeanUI){
+        bedroomService.inRoom(pageBeanUI);
+        mv.setViewName("redirect:bedRoomList");
+        return mv;
+    }
+
+    @RequestMapping("/outRoom")
+    public ModelAndView outRoom(ModelAndView mv,PageBeanUI pageBeanUI){
+        bedroomService.outRoom(pageBeanUI);
+        mv.setViewName("redirect:bedRoomList");
+        return mv;
+    }
+
+    @RequestMapping("/getAjaxBedRoomList")
+    public @ResponseBody List<BedRoom> getAjaxBedRoomList(@RequestBody Room room){
+        List<BedRoom> bedRoomList = bedroomService.getAjaxBedRoomList(room);
+        return bedRoomList;
     }
 }

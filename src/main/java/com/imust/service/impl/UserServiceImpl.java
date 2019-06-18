@@ -1,5 +1,6 @@
 package com.imust.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.imust.dao.IUserDao;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.User;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements IUserService {
     private IUserDao userDao;
     @Override
     public List<User> findUserList(PageBeanUI pageBeanUI) {
+        PageHelper.startPage(pageBeanUI.getPageNumber(),pageBeanUI.getPageSize());
         return userDao.findUserList(pageBeanUI);
     }
 

@@ -1,5 +1,6 @@
 package com.imust.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.imust.domain.Dormitory;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.User;
@@ -52,6 +53,7 @@ public class DormitoryController {
         }else {
             dormitoryList = dormitoryService.findDormitoryList(null);
         }
+//        PageInfo<Dormitory> pageBean = new PageInfo<>(dormitoryList,5);
         mv.addObject("dormitoryList",dormitoryList);
         mv.setViewName("forward:/jsp/dormitory/dormitory.jsp");
         return mv;

@@ -86,7 +86,6 @@
 								  宿舍楼：
 								  <select name ="bedRoom.room.dormitory.dorId" id="">
 									  <option value="">请选择</option>
-
 									  <c:forEach items="${dormitoryList}" var="dormitory">
 									  	<option value="${dormitory.dorId}" ${pageBeanUI.bedRoom.room.dormitory.dorId==dormitory.dorId ? "selected":""} >${dormitory.dorName}</option>
 									  </c:forEach>
@@ -128,26 +127,6 @@
 			  <td>性别</td>
 
 			</tr>
-		<%--			   //需要 动态条 和 不需要动态条
-        //System.out.println("totalPage:"+totalPage); 所有的代码必须注意 先计算totalPage
-        //if(totalPage<= 10 ){//总页码小于10   totalPage = 0  不计算
-        if(getTotalPage()<= 10 ){// 第一次计算totalPage
-            start = 1 ;
-            end = totalPage;
-        }else{ //总页码大于10 必须动态条 前四后五
-            start = pageNumber - 4; //前四
-            end = pageNumber + 5;//后五
-            //极限值
-            if(start < 1){//pageNumber =  1 ,2 , 3 ,  4
-                start  = 1 ;
-                end = 10 ; //不用动态
-            }
-            //极限值
-            if(end > totalPage){//最大值 超过总页码
-                end = totalPage; //最大值等于总页码  52
-                start = totalPage - 9;
-            }--%>
-
 			<c:forEach items="${pageBean.list}" var="bedRoom" varStatus="stat">
 				<tr id="data_${stat.index}" align="center" class="main_trbg" >
 					<td><input type="checkbox" id="box_${stat.index}" value="${user.uid}"></td>
@@ -162,7 +141,7 @@
 								<a href='${pageContext.request.contextPath}/bedroom/inRoomUI?bedId=${bedRoom.bedId }'>未入住</a>
 							</c:if>
 						  <c:if test="${bedRoom.isFlag !='N'}">
-							  <a href='javascript:void(0)' onclick="outRoom(${bedRoom.bedId })">退住</a>
+							  <a href='javascript:void(0)' onclick="outRoom(${bedRoom.bedId },${bedRoom.student.stuId })">退住</a>
 						  </c:if>
 					  </td>
 					  <td>${empty bedRoom.student? '' :bedRoom.student.stuGender}</td>
@@ -179,11 +158,11 @@
 				var params = $("#bedRoomForm").serialize();
 				location.href="${pageContext.request.contextPath}/bedroom/bedRoomList?"+params;
 			}
-			function outRoom(bedId){
+			function outRoom(bedId,stuId){
                 $.ligerDialog.confirm("确认要退住吗?","退住",function(r){
                     if(r){
-                        alert(bedId);
-                        window.location = "${pageContext.request.contextPath }/bedroom/outRoom?bedId=" + bedId;
+                        alert(bedId + "+++" + stuId);
+                        window.location = "${pageContext.request.contextPath }/bedroom/outRoom?bedId=" + bedId + "&stuId=" + stuId;
                     }
                 });
 			}
@@ -198,26 +177,15 @@
 					  </a>
 				  </li>
 				  <li>
-					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.pageNum-1})"  aria-label="Previous">
+					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.prePage})"  aria-label="Previous">
 						  <span aria-hidden="true">上页</span>
 					  </a>
 				  </li>
-
-				 <%-- <c:choose>
-					  <c:when test="${pageBean.pages} <= 10">
-						  <c:set var = "start" value="1"/>
-						  <c:set var = "end" value="${pageBean.pages}"/>
-					  </c:when>
-					  <c:when test="${pageBean.pages} > 10">
-						  <c:set var = "start" value="${pageBean.pageNum-4}"/>
-						  <c:set var = "end" value="${pageBean.pageNum+5}"/>
-					  </c:when>
-				  </c:choose>--%>
 				  <c:forEach begin="${pageBean.navigateFirstPage}" end="${pageBean.navigateLastPage}" var="num">
 				  	<li ${pageBean.pageNum==num ? 'class="active"' : ""} ><a href="javascript:void(0)" onclick="userPageMethod(${num})">${num}</a></li>
 				  </c:forEach>
 				  <li>
-					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.pageNum+1})" aria-label="Next">
+					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.nextPage})" aria-label="Next">
 						  <span aria-hidden="true">下页</span>
 					  </a>
 				  </li>

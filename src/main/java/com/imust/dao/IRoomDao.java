@@ -1,5 +1,6 @@
 package com.imust.dao;
 
+import com.imust.domain.Dormitory;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.Room;
 
@@ -24,4 +25,6 @@ public interface IRoomDao {
      * @return
      */
     int findTotalRecord();
+
+    List<Room> getAjaxRoomList(Dormitory dormitory);
 }

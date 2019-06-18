@@ -1,10 +1,9 @@
 package com.imust.controller;
 
-import com.imust.domain.Dormitory;
+import com.github.pagehelper.PageInfo;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.User;
 import com.imust.service.IUserService;
-import org.hamcrest.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +45,8 @@ public class UserController {
     @RequestMapping("/userList")
     public ModelAndView userList(ModelAndView mv, PageBeanUI pageBeanUI){
         List<User> list = userService.findUserList(pageBeanUI);
-        mv.addObject("userList",list);
+        PageInfo<User> pageBean = new PageInfo<>(list);
+        mv.addObject("pageBean",pageBean);
         mv.setViewName("forward:/jsp/user/user.jsp");
         return mv;
     }

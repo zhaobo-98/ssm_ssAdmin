@@ -43,4 +43,9 @@ public class RoomServiceImpl implements IRoomService {
     public int findTotalRecord() {
         return roomDao.findTotalRecord();
     }
+
+    @Override
+    public List<Room> getAjaxRoomList(Dormitory dormitory) {
+        return roomDao.getAjaxRoomList(dormitory);
+    }
 }

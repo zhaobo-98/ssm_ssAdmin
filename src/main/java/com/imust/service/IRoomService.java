@@ -1,5 +1,6 @@
 package com.imust.service;
 
+import com.imust.domain.Dormitory;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.Room;
 
@@ -25,4 +26,11 @@ public interface IRoomService {
      * @return
      */
     int findTotalRecord();
+
+    /**
+     * 异步查询room信息
+     * @param dormitory
+     * @return
+     */
+    List<Room> getAjaxRoomList(Dormitory dormitory);
 }

@@ -54,4 +54,8 @@
         insert into room values(null,#{roomName},#{dormitory.dorId})
     </insert>
 
+    <select id="getAjaxRoomList" resultMap="roomMap" parameterType="dormitory">
+        SELECT *FROM room where room_dor_id = #{dorId}
+    </select>
+
 </mapper>

@@ -156,7 +156,7 @@
 					  </a>
 				  </li>
 				  <li>
-					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.pageNum-1})"  aria-label="Previous">
+					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.prePage})"  aria-label="Previous">
 						  <span aria-hidden="true">上页</span>
 					  </a>
 				  </li>
@@ -165,7 +165,7 @@
 				  	<li ${pageBean.pageNum==num ? 'class="active"' : ""} ><a href="javascript:void(0)" onclick="userPageMethod(${num})">${num}</a></li>
 				  </c:forEach>
 				  <li>
-					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.pageNum+1})" aria-label="Next">
+					  <a href="javascript:void(0)" onclick="userPageMethod(${pageBean.nextPage})" aria-label="Next">
 						  <span aria-hidden="true">下页</span>
 					  </a>
 				  </li>

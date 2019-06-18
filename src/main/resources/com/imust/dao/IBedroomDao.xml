@@ -45,10 +45,61 @@
                     u.uid = #{loginUser.uid}
                 </if>
             </if>
+            <if test="bedRoom != null">
+                <if test="bedRoom.room != null">
+                    <if test="bedRoom.room.dormitory != null">
+                        <if test="bedRoom.room.dormitory.dorId != null and bedRoom.room.dormitory.dorId != ''">
+                            and d.dor_id = #{bedRoom.room.dormitory.dorId}
+                        </if>
+                    </if>
+                    <if test="bedRoom.room.roomName != null and bedRoom.room.roomName != ''">
+                        and r.room_name = #{bedRoom.room.roomName}
+                    </if>
+                </if>
+                <if test="bedRoom.isFlag != null and bedRoom.isFlag != ''">
+                    and b.is_flag = #{bedRoom.isFlag}
+                </if>
+            </if>
         </where>
     </select>
 
     <insert id="addBedroom" parameterType="bedroom">
         insert into bedroom values(null,#{roomBedName},#{isFlag},null,#{room.roomId});
     </insert>
+
+    <select id="findBedroomById" parameterType="PageBeanUI" resultMap="bedRoomMap">
+        SELECT *FROM bedroom b
+        LEFT JOIN room r ON b.room_id = r.room_id
+        LEFT JOIN dormitory d ON r.room_dor_id = d.dor_id
+        LEFT JOIN student s ON b.stu_id = s.stu_id
+        LEFT JOIN USER u ON d.user_id = u.uid
+        <where>
+            <if test="bedRoom != null">
+                <if test="bedRoom.bedId != null and bedRoom.bedId != ''">
+                   and b.bed_id = #{bedRoom.bedId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <update id="updateBedroom" parameterType="PageBeanUI">
+        <if test="stuId != null and stuId != ''">
+            update bedroom set is_flag = 'N' ,stu_id = NULL where bed_id = #{bedId}
+        </if>
+        <if test="bedRoom != null">
+            <if test="bedRoom.bedId != null and bedRoom.bedId != ''">
+                update bedroom set is_flag = #{bedRoom.isFlag} ,stu_id = #{bedRoom.student.stuId} where bed_id = #{bedRoom.bedId}
+            </if>
+        </if>
+    </update>
+
+
+
+    <select id="getAjaxBedRoomList" parameterType="room" resultMap="bedRoomMap">
+        select *from bedroom where room_id = #{roomId} and is_flag = 'N'
+    </select>
+
+    <update id="update" parameterType="PageBeanUI">
+        update bedroom set is_flag = 'Y' ,stu_id = #{student.stuId} where bed_id = #{bedRoom.bedId}
+    </update>
 </mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 配置到接口  接口的全限定类名-->
+<mapper namespace="com.imust.dao.IStudentDao">
+    <insert id="addStudent" parameterType="PageBeanUI" useGeneratedKeys="true" keyProperty="bedRoom.student.stuId">
+        insert into student values (null,#{bedRoom.student.stuName},#{bedRoom.student.stuPhone},#{bedRoom.student.stuFamilyPhone},#{bedRoom.student.stuTeacherName},#{bedRoom.student.stuTeacherPhone},#{bedRoom.student.stuGender},#{bedRoom.student.stuAddress},#{bedRoom.room.roomName},null)
+    </insert>
+
+    <delete id="deleteById" parameterType="int">
+        delete from student where stu_id = #{stuId}
+    </delete>
+
+    <select id="findStudentList" parameterType="pageBeanUI" resultMap="studentMap">
+        SELECT *,r.room_name AS rName FROM  student s
+        LEFT JOIN bedroom b ON b.stu_id = s.stu_id
+        LEFT JOIN room r ON r.room_id = b.room_id
+        LEFT JOIN dormitory d ON  r.room_dor_id = d.dor_id
+        LEFT JOIN user u ON d.user_id = u.uid
+        <where>
+            <if test="loginUser!=null">
+                <if test="loginUser.status==2">
+                    and  u.uid = #{loginUser.uid}
+                </if>
+            </if>
+
+            <if test="dormitory!=null">
+                <if test="dormitory.dorId!=null and dormitory.dorId!=''">
+                    and d.dor_id = #{dormitory.dorId}
+                </if>
+            </if>
+
+            <if test="student!=null">
+                <if test="student.stuName!=null and student.stuName!=''">
+                    and s.stu_name like '%${student.stuName}%'
+                </if>
+            </if>
+
+            <if test="room!=null">
+                <if test="room.roomName!=null and room.roomName!=''">
+                    and r.room_name = #{room.roomName}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveStudent" parameterType="PageBeanUI" useGeneratedKeys="true" keyProperty="student.stuId">
+        insert into student values(null ,#{student.stuName},#{student.stuPhone},#{student.stuFamilyPhone},#{student.stuTeacherName},#{student.stuTeacherPhone},#{student.stuGender},#{student.stuAddress},#{student.roomName},#{bedRoom.bedId} )
+    </insert>
+
+    <select id="findStudentById" parameterType="PageBeanUI" resultMap="studentMap">
+        SELECT *,r.room_name AS rName FROM  student s
+        LEFT JOIN bedroom b ON b.stu_id = s.stu_id
+        LEFT JOIN room r ON r.room_id = b.room_id
+        LEFT JOIN dormitory d ON  r.room_dor_id = d.dor_id
+        LEFT JOIN user u ON d.user_id = u.uid
+        where s.stu_id = #{student.stuId}
+    </select>
+    <resultMap id="studentMap" type="student">
+        <id column="stu_id" property="stuId"/>
+        <result column="stu_name" property="stuName"/>
+        <result column="stu_phone" property="stuPhone"/>
+        <result column="stu_family_phone" property="stuFamilyPhone"/>
+        <result column="stu_teacher_name" property="stuTeacherName"/>
+        <result column="stu_teacher_phone" property="stuTeacherPhone"/>
+        <result column="stu_gender" property="stuGender"/>
+        <result column="stu_address" property="stuAddress"/>
+        <result column="room_name" property="roomName"/>
+        <association property="room" javaType="room">
+            <id column="room_id" property="roomId"/>
+            <result column="rName" property="roomName"/>
+            <association property="dormitory" javaType="dormitory">
+                <id column="dor_id" property="dorId"/>
+                <result column="dor_name" property="dorName"/>
+                <association property="user" javaType="user" autoMapping="true">
+                    <result column="create_date" property="createDate"/>
+                </association>
+            </association>
+            <association property="bedRoom" javaType="bedRoom">
+                <id column="bed_id" property="bedId"/>
+                <result column="room_bed_name" property="roomBedName"/>
+                <result column="is_flag" property="isFlag"/>
+            </association>
+        </association>
+    </resultMap>
+</mapper>

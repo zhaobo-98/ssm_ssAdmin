@@ -8,8 +8,10 @@ import com.imust.service.IDormitoryService;
 import com.imust.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -68,5 +70,11 @@ public class RoomController {
         // 添加宿舍
         roomService.addRoom(room);
         return "redirect:roomList";
+    }
+
+    @RequestMapping("/getAjaxRoomList")
+    public @ResponseBody List<Room> getAjaxRoomList(@RequestBody Dormitory dormitory){
+        List<Room> roomList = roomService.getAjaxRoomList(dormitory);
+        return roomList;
     }
 }
