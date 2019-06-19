@@ -34,4 +34,10 @@ public interface IStudentDao {
 
 
     Student findStudentById(PageBeanUI pageBeanUI);
+
+    /**
+     * 更新学生信息
+     * @param pageBeanUI
+     */
+    void updateStudent(PageBeanUI pageBeanUI);
 }

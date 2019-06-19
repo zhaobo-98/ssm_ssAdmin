@@ -36,4 +36,16 @@ public class StudentServiceImpl implements IStudentService {
     public Student findStudentById(PageBeanUI pageBeanUI) {
         return studentDao.findStudentById(pageBeanUI);
     }
+
+    @Override
+    public void updateStudent(PageBeanUI pageBeanUI) {
+        //1.先把旧的信息恢复
+        bedroomDao.updateOldBedRoom(pageBeanUI);
+
+        //2.更新新的信息
+        bedroomDao.update(pageBeanUI);
+
+        //3.修改学生信息
+        studentDao.updateStudent(pageBeanUI);
+    }
 }

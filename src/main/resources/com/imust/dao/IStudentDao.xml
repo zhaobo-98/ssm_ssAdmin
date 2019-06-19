@@ -17,7 +17,8 @@
         LEFT JOIN bedroom b ON b.stu_id = s.stu_id
         LEFT JOIN room r ON r.room_id = b.room_id
         LEFT JOIN dormitory d ON  r.room_dor_id = d.dor_id
-        LEFT JOIN user u ON d.user_id = u.uid
+        LEFT JOIN USER u ON d.user_id = u.uid
+        LEFT JOIN stu_image si ON  s.stu_id = si.stu_id
         <where>
             <if test="loginUser!=null">
                 <if test="loginUser.status==2">
@@ -57,6 +58,10 @@
         LEFT JOIN user u ON d.user_id = u.uid
         where s.stu_id = #{student.stuId}
     </select>
+
+    <update id="updateStudent" parameterType="PageBeanUI">
+        update student set stu_name = #{student.stuName},stu_phone =#{student.stuPhone},stu_Family_Phone = #{student.stuFamilyPhone},stu_Teacher_Name = #{student.stuTeacherName},stu_Teacher_Phone = #{student.stuTeacherPhone},stu_Gender = #{student.stuGender},stu_Address = #{student.stuAddress} where stu_id = #{student.stuId}
+    </update>
     <resultMap id="studentMap" type="student">
         <id column="stu_id" property="stuId"/>
         <result column="stu_name" property="stuName"/>
@@ -67,6 +72,11 @@
         <result column="stu_gender" property="stuGender"/>
         <result column="stu_address" property="stuAddress"/>
         <result column="room_name" property="roomName"/>
+        <!--封装图片对象-->
+        <association property="stuImage" javaType="stuImage">
+            <id column="img_id" property="imgId"></id>
+            <result column="image_path" property="imgPath"></result>
+        </association>
         <association property="room" javaType="room">
             <id column="room_id" property="roomId"/>
             <result column="rName" property="roomName"/>

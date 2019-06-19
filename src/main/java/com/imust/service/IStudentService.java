@@ -24,4 +24,10 @@ public interface IStudentService {
      * @return
      */
     Student findStudentById(PageBeanUI pageBeanUI);
+
+    /**
+     * 更新学生信息
+     * @param pageBeanUI
+     */
+    void updateStudent(PageBeanUI pageBeanUI);
 }

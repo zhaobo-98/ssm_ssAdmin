@@ -102,4 +102,8 @@
     <update id="update" parameterType="PageBeanUI">
         update bedroom set is_flag = 'Y' ,stu_id = #{student.stuId} where bed_id = #{bedRoom.bedId}
     </update>
+
+    <update id="updateOldBedRoom" parameterType="PageBeanUI">
+        update bedroom set is_flag = 'N' ,stu_id = null where stu_id = #{student.stuId}
+    </update>
 </mapper>

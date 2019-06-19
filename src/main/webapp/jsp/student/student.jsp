@@ -44,16 +44,16 @@
 	 		   /** 获取到用户选中的复选框  */
 	 		   var checkedBoxs = boxs.filter(":checked");
 	 		   if(checkedBoxs.length < 1){
-	 			   $.ligerDialog.error("请选择一个需要删除的用户！");
+	 			   $.ligerDialog.error("请选择一个需要删除的学生！");
 	 		   }else{
 	 			   /** 得到用户选中的所有的需要删除的ids */
 	 			   var ids = checkedBoxs.map(function(){
 	 				   return this.value;
 	 			   })
 
-	 			   $.ligerDialog.confirm("确认要删除吗?","删除用户",function(r){
+	 			   $.ligerDialog.confirm("确认要删除吗?","删除学生",function(r){
 	 				   if(r){
-	 					   window.location = "${pageContext.request.contextPath }/user/deleteById?ids=" + ids.get();
+	 					   window.location = "${pageContext.request.contextPath }/student/deleteStudentById?ids=" + ids.get();
 	 				   }
 	 			   });
 	 		   }
@@ -121,6 +121,7 @@
 			  <td>床位</td>
 			  <td>宿舍</td>
 			  <td>宿舍楼</td>
+			  <td>学生头像</td>
 			  <td align="center">操作</td>
 			</tr>
 			<c:forEach items="${pageBean.list}" var="student" varStatus="stat">
@@ -136,10 +137,13 @@
 					  <td>${student.room.bedRoom.roomBedName }</td>
 					  <td>${student.room.roomName }</td>
 					  <td>${student.room.dormitory.dorName }</td>
-
+					  <td><img title="学生头像" width="60px" src="${pageContext.request.contextPath}/upload${student.stuImage.imgPath}"/></td>
 					 <td align="center" width="40px;"><a href="${pageContext.request.contextPath}/student/updateStudentUI?student.stuId=${student.stuId}">
 							<img title="修改" src="${pageContext.request.contextPath}/images/update.gif"/></a>
 					  </td>
+					<td align="center" width="40px;"><a href="${pageContext.request.contextPath}/student/uploadStudentUI?student.stuId=${student.stuId}">
+						<img title="头像上传" src="${pageContext.request.contextPath}/images/update.gif"/></a>
+					</td>
 				</tr>
 			</c:forEach>
 		  </table>

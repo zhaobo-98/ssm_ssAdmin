@@ -27,7 +27,7 @@ public class Student {
     private String stuGender;
     private String stuAddress;
     private String roomName;
-
+    private StuImage stuImage;
     private Room room;
 
     @Override
@@ -42,10 +42,18 @@ public class Student {
                 ", stuGender='" + stuGender + '\'' +
                 ", stuAddress='" + stuAddress + '\'' +
                 ", roomName='" + roomName + '\'' +
+                ", stuImage=" + stuImage +
                 ", room=" + room +
                 '}';
     }
 
+    public StuImage getStuImage() {
+        return stuImage;
+    }
+
+    public void setStuImage(StuImage stuImage) {
+        this.stuImage = stuImage;
+    }
     public Integer getStuId() {
         return stuId;
     }

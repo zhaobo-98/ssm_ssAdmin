@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public class BedroomServiceImpl implements IBedroomService {
     @Autowired
+
     private IBedroomDao bedroomDao;
 
     @Autowired

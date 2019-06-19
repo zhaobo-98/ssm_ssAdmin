@@ -45,4 +45,10 @@ public interface IBedroomDao {
      * @param pageBeanUI
      */
     void update(PageBeanUI pageBeanUI);
+
+    /**
+     * 恢复旧的bedRoom记录
+     * @param pageBeanUI
+     */
+    void updateOldBedRoom(PageBeanUI pageBeanUI);
 }

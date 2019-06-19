@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace 配置到接口  接口的全限定类名-->
+<mapper namespace="com.imust.dao.IStuImageDao">
+    <insert id="saveStuImage" parameterType="stuImage">
+        insert into stu_image values (null,#{imgPath},#{student.stuId})
+    </insert>
+</mapper>
