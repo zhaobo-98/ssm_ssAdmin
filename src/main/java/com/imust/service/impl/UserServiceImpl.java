@@ -21,10 +21,6 @@ public class UserServiceImpl implements IUserService {
         return userDao.findUserList(pageBeanUI);
     }
 
-    @Override
-    public void saveUser(User user) {
-        userDao.saveUser(user);
-    }
 
     @Override
     public User findUserByNameAndPwd(User user) {
@@ -56,6 +52,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> findUserListByStatus(User user) {
         return userDao.findUserListByStatus(user);
+    }
+
+    @Override
+    public List<User> findUsers() {
+        return userDao.findUsers();
     }
 
 

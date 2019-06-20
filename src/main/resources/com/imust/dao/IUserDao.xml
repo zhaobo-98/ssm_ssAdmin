@@ -71,4 +71,8 @@
     <delete id="deleteById" parameterType="int">
         delete from user where uid = #{uid}
     </delete>
+
+    <select id="findUsers" resultMap="userMap">
+        select *from user
+    </select>
 </mapper>

@@ -51,9 +51,9 @@
 	 				   return this.value;
 	 			   })
 
-	 			   $.ligerDialog.confirm("确认要删除吗?","删除用户",function(r){
+	 			   $.ligerDialog.confirm("确认要删除吗?","删除宿舍",function(r){
 	 				   if(r){
-	 					   window.location = "${pageContext.request.contextPath }/user/deleteById?ids=" + ids.get();
+	 					   window.location = "${pageContext.request.contextPath }/user/deleteByRoomId?ids=" + ids.get();
 	 				   }
 	 			   });
 	 		   }
@@ -87,8 +87,8 @@
 									  宿舍管理员：
 									  <select name="room.dormitory.user.uid">
 										  <option value="">请选择</option>
-										  <c:forEach items="${dormitoryList}" var="dormitory">
-												  <option value="${dormitory.user.uid}" ${pageBeanUI.room.dormitory.user.uid == dormitory.user.uid ? "selected" : ""}>${dormitory.user.username}</option>
+										  <c:forEach items="${userList}" var="user">
+												  <option value="${user.uid}" ${pageBeanUI.room.dormitory.user.uid == user.uid ? "selected" : ""}>${user.username}</option>
 										  </c:forEach>
 									  </select>
 								  </c:if>

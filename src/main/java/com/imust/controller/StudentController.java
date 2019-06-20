@@ -135,11 +135,10 @@ public class StudentController {
     }
 
     @RequestMapping("/deleteStudentById")
-    public ModelAndView deleteStudentById(ModelAndView mv,int [] ids){
-        for (int i = 0; i < ids.length; i++) {
-            System.err.println(ids[i]);
-        }
-
+    public ModelAndView deleteStudentById(ModelAndView mv,int[] ids){
+        System.out.println(ids);
+        studentService.deleteStudentById(ids);
+        mv.setViewName("redirect:/student/studentList");
         return mv;
     }
 

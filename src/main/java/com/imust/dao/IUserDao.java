@@ -14,12 +14,6 @@ public interface IUserDao {
     List<User> findUserList(PageBeanUI pageBeanUI);
 
     /**
-     * 保存用户
-     * @param user
-     */
-    void saveUser(User user);
-
-    /**
      * 根据用户名和密码登录
      * @param user
      * @return
@@ -57,4 +51,6 @@ public interface IUserDao {
      * @return
      */
     List<User> findUserListByStatus(User user);
+
+    List<User> findUsers();
 }

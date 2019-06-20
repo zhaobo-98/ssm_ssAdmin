@@ -6,6 +6,7 @@ import com.imust.domain.*;
 import com.imust.service.IBedroomService;
 import com.imust.service.IDormitoryService;
 import com.imust.service.IRoomService;
+import com.imust.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,11 +31,15 @@ public class RoomController {
     @Autowired
     private IBedroomService bedroomService;
 
+    @Autowired
+    private IUserService userService;
     @RequestMapping("/roomList")
     public ModelAndView roomList(ModelAndView mv, HttpSession session, PageBeanUI pageBeanUI) {
+        //获取当前登录的用户
         User userData = (User) session.getAttribute("loginUser");
         List<Room> roomList = null;
         List<Dormitory> dormitoryList = null;
+        List<User> userList = null;
         if ("2".equals(userData.getStatus())){
             pageBeanUI.setLoginUser(userData);
             roomList = roomService.findRoomList(pageBeanUI);
@@ -43,10 +48,13 @@ public class RoomController {
             pageBeanUI.setLoginUser(null);
             roomList = roomService.findRoomList(pageBeanUI);
             dormitoryList = dormitoryService.findDormitoryList(null);
+            userList = userService.findUsers();
         }
         PageInfo<Room> pageInfo = new PageInfo<>(roomList);
         mv.addObject("dormitoryList",dormitoryList);
+        mv.addObject("userList",userList);
         mv.addObject("pageBean",pageInfo);
+        //回显数据
         mv.addObject("pageBeanUI",pageBeanUI);
         mv.setViewName("forward:/jsp/room/room.jsp");
         return mv;

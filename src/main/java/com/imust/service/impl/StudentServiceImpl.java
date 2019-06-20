@@ -3,7 +3,6 @@ package com.imust.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.imust.dao.IBedroomDao;
 import com.imust.dao.IStudentDao;
-import com.imust.domain.BedRoom;
 import com.imust.domain.PageBeanUI;
 import com.imust.domain.Student;
 import com.imust.service.IStudentService;
@@ -47,5 +46,19 @@ public class StudentServiceImpl implements IStudentService {
 
         //3.修改学生信息
         studentDao.updateStudent(pageBeanUI);
+    }
+
+    @Override
+    public void deleteStudentById(int[] ids) {
+        for (int stuid: ids) {
+            //删除学生信息
+            studentDao.deleteById(stuid);
+            //将bedRoom修改
+            PageBeanUI pageBeanUI = new PageBeanUI();
+            Student student = new Student();
+            student.setStuId(stuid);
+            pageBeanUI.setStudent(student);
+            bedroomDao.updateOldBedRoom(pageBeanUI);
+        }
     }
 }

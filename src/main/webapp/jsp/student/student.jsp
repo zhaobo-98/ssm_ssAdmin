@@ -30,15 +30,15 @@
 		$(function(){
 	 	   /** 获取上一次选中的部门数据 */
 	 	   var boxs  = $("input[type='checkbox'][id^='box_']");
-	 	   
+
 	 	  /** 给数据行绑定鼠标覆盖以及鼠标移开事件  */
 	    	$("tr[id^='data_']").hover(function(){
 	    		$(this).css("backgroundColor","#eeccff");
 	    	},function(){
 	    		$(this).css("backgroundColor","#ffffff");
 	    	})
-	    	
-	    	
+
+
 	 	   /** 删除员工绑定点击事件 */
 	 	   $("#delete").click(function(){
 	 		   /** 获取到用户选中的复选框  */
@@ -126,7 +126,9 @@
 			</tr>
 			<c:forEach items="${pageBean.list}" var="student" varStatus="stat">
 				<tr id="data_${stat.index}" align="center" class="main_trbg" >
-					<td><input type="checkbox" id="box_${stat.index}" value="${student.stuId}"></td>
+					<td>
+						<input type="checkbox" id="box_${stat.index}" value="${student.stuId}">
+					</td>
 					 <td>${student.stuName}</td>
 					  <td>${student.stuPhone }</td>
 					  <td>${student.stuFamilyPhone }</td>

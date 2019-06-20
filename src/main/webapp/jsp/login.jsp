@@ -31,6 +31,12 @@
             });
         }
 
+        //页面加载 需要判断
+        $(function(){
+            if(top.location != self.location){
+                top.location = self.location; //如果登陆页面和主页面路径不一样 将登陆页面赋值给主页面
+            }
+        })
     </script>
 </head>
 <body style="background-color: #F6F6F6;">

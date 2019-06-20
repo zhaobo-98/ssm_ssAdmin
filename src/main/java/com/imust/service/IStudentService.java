@@ -30,4 +30,10 @@ public interface IStudentService {
      * @param pageBeanUI
      */
     void updateStudent(PageBeanUI pageBeanUI);
+
+    /**
+     * 根据id删除
+     * @param ids
+     */
+    void deleteStudentById(int[] ids);
 }

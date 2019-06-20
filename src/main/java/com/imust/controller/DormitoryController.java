@@ -59,9 +59,10 @@ public class DormitoryController {
         return mv;
     }
     @RequestMapping("/updateDormitoryUI")
-    public ModelAndView updateDormitoryUI(Integer dorId,ModelAndView mv){
+    public ModelAndView updateDormitoryUI(Integer dorId,ModelAndView mv,HttpSession session){
+        User user = (User) session.getAttribute("loginUser");
         Dormitory dormitory = dormitoryService.findDormitoryListById(dorId);
-        List<User> userList = userService.findUserList(null);
+        List<User> userList = userService.findUsers();
         mv.addObject("dormitory",dormitory);
         mv.addObject("userList",userList);
         mv.setViewName("forward:/jsp/dormitory/showUpdateDormitory.jsp");

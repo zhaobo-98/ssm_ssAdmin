@@ -14,12 +14,6 @@ public interface IUserService {
     List<User> findUserList(PageBeanUI pageBeanUI);
 
     /**
-     * 保存用户
-     * @param user
-     */
-    void saveUser(User user);
-
-    /**
      * 根据用户名和密码登录
      * @param user
      * @return
@@ -57,4 +51,10 @@ public interface IUserService {
      * @return
      */
     List<User> findUserListByStatus(User user);
+
+    /**
+     * 获取全部用户
+     * @return
+     */
+    List<User> findUsers();
 }
