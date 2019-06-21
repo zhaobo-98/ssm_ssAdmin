@@ -57,7 +57,6 @@ public class Student {
     public Integer getStuId() {
         return stuId;
     }
-
     public void setStuId(Integer stuId) {
         this.stuId = stuId;
     }

@@ -29,6 +29,7 @@ public interface IStudentDao {
     /**
      * 添加学生信息
      * @param pageBeanUI
+     * @return
      */
     void saveStudent(PageBeanUI pageBeanUI);
 

@@ -122,7 +122,8 @@
 			  <td>宿舍</td>
 			  <td>宿舍楼</td>
 			  <td>学生头像</td>
-			  <td align="center">操作</td>
+			  <td align="center">修改</td>
+			  <td align="center">头像</td>
 			</tr>
 			<c:forEach items="${pageBean.list}" var="student" varStatus="stat">
 				<tr id="data_${stat.index}" align="center" class="main_trbg" >

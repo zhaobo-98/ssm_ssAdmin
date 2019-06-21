@@ -7,4 +7,32 @@
     <insert id="saveStuImage" parameterType="stuImage">
         insert into stu_image values (null,#{imgPath},#{student.stuId})
     </insert>
+
+    <select id="findStuImageByStuId" parameterType="stuImage" resultMap="stuImageMap">
+        select *from stu_image where stu_id = #{student.stuId}
+    </select>
+
+    <update id="updateStuImageByStuId" parameterType="stuImage">
+        update stu_image set image_path = #{imgPath} where stu_id = #{student.stuId}
+    </update>
+
+    <delete id="deleteStuImageById" parameterType="int">
+        delete from stu_image where stu_id = #{stuId}
+    </delete>
+
+    <resultMap id="stuImageMap" type="stuImage">
+        <id column="img_id" property="imgId"/>
+        <result column="image_path" property="imgPath"/>
+        <association property="student" javaType="student">
+            <id column="stu_id" property="stuId"/>
+            <result column="stu_name" property="stuName"/>
+            <result column="stu_phone" property="stuPhone"/>
+            <result column="stu_family_phone" property="stuFamilyPhone"/>
+            <result column="stu_teacher_name" property="stuTeacherName"/>
+            <result column="stu_teacher_phone" property="stuTeacherPhone"/>
+            <result column="stu_gender" property="stuGender"/>
+            <result column="stu_address" property="stuAddress"/>
+            <result column="room_name" property="roomName"/>
+        </association>
+    </resultMap>
 </mapper>

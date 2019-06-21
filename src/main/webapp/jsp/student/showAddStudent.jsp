@@ -73,8 +73,7 @@
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
 		<tr valign="top">
 			<td>
-				<form action="${pageContext.request.contextPath}/student/addStudent" id="studentForm" method="post">
-					<input name="stuId" type="hidden" id="stuId" value="${student.stuId}" size="20" />
+				<form action="${pageContext.request.contextPath}/student/addStudent" id="studentForm" method="post" enctype="multipart/form-data">
 					<table width="100%" border="0" cellpadding="0" cellspacing="10" class="main_tab">
 						<tr><td class="font3 fftd">
 							<table>
@@ -128,7 +127,7 @@
 
 									</td>
 
-									<td class="font3 fftd"></td>
+									<td class="font3 fftd">学生头像：<input name="uploadImage" id="stuImage" size="20" type="file"/></td>
 								</tr>
 
 

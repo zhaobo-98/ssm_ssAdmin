@@ -37,7 +37,6 @@ public class StudentController {
     public ModelAndView studentList(ModelAndView mv, HttpSession session, PageBeanUI pageBeanUI) {
         User userData = (User) session.getAttribute("loginUser");
         List<Dormitory> dormitoryList = null;
-        System.err.println(pageBeanUI);
         if (userData != null && "2".equals(userData.getStatus())) {
             pageBeanUI.setLoginUser(userData);
             dormitoryList = dormitoryService.findDormitoryList(userData);
@@ -69,8 +68,21 @@ public class StudentController {
     }
 
     @RequestMapping("/addStudent")
-    public String addStudent(PageBeanUI pageBeanUI) {
-        System.err.println(pageBeanUI);
+    public String addStudent(PageBeanUI pageBeanUI,MultipartFile uploadImage,HttpSession session,StuImage stuImage) throws IOException {
+        //完整路径
+        String path = session.getServletContext().getRealPath("/upload");
+        File file = new File(path);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        //文件名称
+        String filename = uploadImage.getOriginalFilename();
+
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        filename = uuid +"_"+ filename;
+        uploadImage.transferTo(new File(path,filename));
+        stuImage.setImgPath("/"+filename);
+        pageBeanUI.getStudent().setStuImage(stuImage);
         studentService.saveStudent(pageBeanUI);
         return "redirect:/student/studentList";
     }

@@ -12,6 +12,12 @@ public class StuImageServiceImpl implements IStuImageService {
     private IStuImageDao stuImageDao;
     @Override
     public void saveStuImage(StuImage stuImage) {
-        stuImageDao.saveStuImage(stuImage);
+        //从数据库查询
+        StuImage stuImages = stuImageDao.findStuImageByStuId(stuImage);
+        if (stuImages != null){
+            stuImageDao.updateStuImageByStuId(stuImage);
+        }else {
+            stuImageDao.saveStuImage(stuImage);
+        }
     }
 }

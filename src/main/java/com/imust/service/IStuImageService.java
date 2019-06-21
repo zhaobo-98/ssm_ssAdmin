@@ -8,4 +8,5 @@ public interface IStuImageService {
      * @param stuImage
      */
     void saveStuImage(StuImage stuImage);
+
 }
