@@ -25,7 +25,8 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-
+    <!--配置异常-->
+    <bean id="myException" class="com.imust.exception.MyException"></bean>
     <!--过滤静态资源-->
     <mvc:default-servlet-handler/>
 

@@ -1,10 +1,13 @@
 package com.imust.service.impl;
 
-import com.github.pagehelper.PageHelper;
+import com.imust.constant.Constant;
 import com.imust.dao.IDormitoryDao;
+import com.imust.dao.IRoomDao;
 import com.imust.domain.Dormitory;
+import com.imust.domain.Room;
 import com.imust.domain.User;
 import com.imust.service.IDormitoryService;
+import com.imust.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ public class DormitoryServiceImpl implements IDormitoryService {
     @Autowired
     private IDormitoryDao dormitoryDao;
 
+    @Autowired
+    private IRoomDao roomDao;
     @Override
     public void addDormitory(Dormitory dormitory) {
         dormitoryDao.addDormitory(dormitory);
@@ -36,9 +41,14 @@ public class DormitoryServiceImpl implements IDormitoryService {
     }
 
     @Override
-    public void deleteDormitoryById(Integer[] ids) {
+    public void deleteDormitoryById(int[] ids) {
         for (int i : ids) {
-            dormitoryDao.deleteDormitoryById(i);
+            List<Room> roomList = roomDao.findRoomById(i);
+            if (roomList.size() != 0){
+                throw new RuntimeException(Constant.DORMITORY_HAVE_ROOM);
+            }else {
+                dormitoryDao.deleteDormitoryById(i);
+            }
         }
     }
 

@@ -33,4 +33,23 @@ public interface IRoomService {
      * @return
      */
     List<Room> getAjaxRoomList(Dormitory dormitory);
+
+    /**
+     * 根据id删除宿舍信息
+     * @param ids
+     */
+    void deleteRoomById(int[] ids);
+
+    /**
+     * 根据id查询宿舍信息,进行修改
+     * @param room
+     * @return
+     */
+    Room findRoomByRoom(Room room);
+
+    /**
+     * 更新宿舍信息
+     * @param room
+     */
+    void updateRoom(Room room);
 }

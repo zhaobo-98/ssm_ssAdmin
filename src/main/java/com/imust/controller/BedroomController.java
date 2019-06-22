@@ -83,4 +83,11 @@ public class BedroomController {
         List<BedRoom> bedRoomList = bedroomService.getAjaxBedRoomList(room);
         return bedRoomList;
     }
+
+    @RequestMapping("/deleteBedRoomById")
+    public ModelAndView deleteBedRoomById(ModelAndView mv,BedRoom bedRoom){
+        bedroomService.deleteBedRoomByBedRoom(bedRoom);
+        mv.setViewName("redirect:/bedroom/bedRoomList");
+        return mv;
+    }
 }

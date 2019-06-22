@@ -7,6 +7,7 @@ import com.imust.service.IBedroomService;
 import com.imust.service.IDormitoryService;
 import com.imust.service.IRoomService;
 import com.imust.service.IUserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,5 +85,27 @@ public class RoomController {
     public @ResponseBody List<Room> getAjaxRoomList(@RequestBody Dormitory dormitory){
         List<Room> roomList = roomService.getAjaxRoomList(dormitory);
         return roomList;
+    }
+
+    @RequestMapping("/deleteByRoomId")
+    public ModelAndView deleteByRoomId(ModelAndView mv,int[] ids){
+        roomService.deleteRoomById(ids);
+        mv.setViewName("redirect:/room/roomList");
+        return mv;
+    }
+
+    @RequestMapping("/updateRoomUI")
+    public ModelAndView updateRoomUI(Room room,ModelAndView mv){
+        Room rooms = roomService.findRoomByRoom(room);
+        mv.addObject("rooms",rooms);
+        mv.setViewName("forward:/jsp/room/showUpdateRoom.jsp");
+        return mv;
+    }
+
+    @RequestMapping("/updateRoom")
+    public String updateRoom(Room room){
+        // 添加宿舍
+        roomService.updateRoom(room);
+        return "redirect:roomList";
     }
 }

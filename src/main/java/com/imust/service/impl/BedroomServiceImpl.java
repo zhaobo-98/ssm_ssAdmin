@@ -1,6 +1,7 @@
 package com.imust.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.imust.constant.Constant;
 import com.imust.dao.IBedroomDao;
 import com.imust.dao.IStudentDao;
 import com.imust.domain.BedRoom;
@@ -56,6 +57,22 @@ public class BedroomServiceImpl implements IBedroomService {
     @Override
     public List<BedRoom> getAjaxBedRoomList(Room room) {
         return bedroomDao.getAjaxBedRoomList(room);
+    }
+
+    @Override
+    public BedRoom findBedroomByBedRoom(BedRoom bedRoom) {
+        return bedroomDao.findBedroomByBedRoom(bedRoom);
+    }
+
+    @Override
+    public void deleteBedRoomByBedRoom(BedRoom bedRoom) {
+        //先查询当前床位下是否学生居住,如果有抛异常,如果没有真实删除床位
+        BedRoom bedroom = bedroomDao.findBedroomByBedRoom(bedRoom);
+        if (bedroom != null){
+            throw new RuntimeException(Constant.BEDROOM_HAVE_STUDENT);
+        }else {
+            bedroomDao.deleteBedRoomByBedRoom(bedRoom);
+        }
     }
 
 }

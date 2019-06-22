@@ -1,8 +1,10 @@
 package com.imust.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.imust.constant.Constant;
 import com.imust.dao.IBedroomDao;
 import com.imust.dao.IRoomDao;
+import com.imust.dao.IStudentDao;
 import com.imust.domain.*;
 import com.imust.service.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class RoomServiceImpl implements IRoomService {
     @Autowired
     private IBedroomDao bedroomDao;
 
+    @Autowired
+    private IStudentDao studentDao;
     public List<Room> findRoomList(PageBeanUI pageBeanUI) {
 
         PageHelper.startPage(pageBeanUI.getPageNumber(),pageBeanUI.getPageSize());
@@ -47,5 +51,28 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<Room> getAjaxRoomList(Dormitory dormitory) {
         return roomDao.getAjaxRoomList(dormitory);
+    }
+
+    @Override
+    public void deleteRoomById(int[] ids) {
+        for(int i:ids){
+            List<BedRoom> bedRoomList = bedroomDao.findBedroomByIds(i);
+            if (bedRoomList.size() != 0){
+                throw new RuntimeException(Constant.ROOM_HAVE_BEDROOM);
+            }else{
+                roomDao.deleteRoomById(i);
+                bedroomDao.deleteBedRoomByRoomId(i);
+            }
+        }
+    }
+
+    @Override
+    public Room findRoomByRoom(Room room) {
+        return roomDao.findRoomByRoom(room);
+    }
+
+    @Override
+    public void updateRoom(Room room) {
+        roomDao.updateRoom(room);
     }
 }

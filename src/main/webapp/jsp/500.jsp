@@ -12,7 +12,8 @@
 </head>
 <body style="background-color:#fff; ">
 <div style="margin:0 auto; width:500px; height:306px;">
-    对不起,您没有权限,请联系管理员
+    对不起,您没有权限,请联系管理员<br/>
+    异常信息为:<span style="color: red">${errorMsg}</span>
 </div>
 </body>
 </html>

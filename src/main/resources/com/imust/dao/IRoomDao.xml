@@ -58,4 +58,20 @@
         SELECT *FROM room where room_dor_id = #{dorId}
     </select>
 
-</mapper>
+    <delete id="deleteRoomById" parameterType="int" >
+        delete from room where room_id = #{roomId}
+    </delete>
+
+    <select id="findRoomById" parameterType="int" resultMap="roomMap">
+        select * from room where room_dor_id = #{dorId}
+    </select>
+
+    <select id="findRoomByRoom" parameterType="room" resultMap="roomMap">
+        select *from room left join dormitory on room_dor_id = dor_id where room_id = #{roomId}
+    </select>
+
+
+    <update id="updateRoom" parameterType="room">
+        update room set room_name = #{roomName} where room_id = #{roomId}
+    </update>
+ </mapper>

@@ -46,4 +46,18 @@ public interface IBedroomService {
      * @return
      */
     List<BedRoom> getAjaxBedRoomList(Room room);
+
+    /**
+     * 根据id查询床位信息
+     * @param bedRoom
+     * @return
+     */
+    BedRoom findBedroomByBedRoom(BedRoom bedRoom);
+
+    /**
+     * 根据id删除床位信息
+     * @param bedRoom
+     */
+    void deleteBedRoomByBedRoom(BedRoom bedRoom);
+
 }

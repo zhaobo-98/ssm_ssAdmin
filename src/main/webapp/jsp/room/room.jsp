@@ -53,7 +53,7 @@
 
 	 			   $.ligerDialog.confirm("确认要删除吗?","删除宿舍",function(r){
 	 				   if(r){
-	 					   window.location = "${pageContext.request.contextPath }/user/deleteByRoomId?ids=" + ids.get();
+	 					   window.location = "${pageContext.request.contextPath }/room/deleteByRoomId?ids=" + ids.get();
 	 				   }
 	 			   });
 	 		   }
@@ -130,7 +130,7 @@
 					  <td>${room.roomName}</td>
 					  <td>${room.dormitory.user.name }</td>
 
-					 <td align="center" width="40px;"><a href="${pageContext.request.contextPath}/user/updateUserUI?uid=${user.uid}">
+					 <td align="center" width="40px;"><a href="${pageContext.request.contextPath}/room/updateRoomUI?roomId=${room.roomId}">
 							<img title="修改" src="${pageContext.request.contextPath}/images/update.gif"/></a>
 					  </td>
 				</tr>

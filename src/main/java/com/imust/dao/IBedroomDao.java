@@ -51,4 +51,32 @@ public interface IBedroomDao {
      * @param pageBeanUI
      */
     void updateOldBedRoom(PageBeanUI pageBeanUI);
+
+
+    /**
+     * 根据id查询床位信息
+     * @param bedRoom
+     * @return
+     */
+    BedRoom findBedroomByBedRoom(BedRoom bedRoom);
+
+
+    /**
+     * 根据id删除床位信息
+     * @param bedRoom
+     */
+    void deleteBedRoomByBedRoom(BedRoom bedRoom);
+
+    /**
+     * 根据id查询床位信息
+     * @return
+     * @param i
+     */
+    List<BedRoom> findBedroomByIds(int i);
+
+    /**
+     * 根据id删除床位
+     * @param i
+     */
+    void deleteBedRoomByRoomId(int i);
 }

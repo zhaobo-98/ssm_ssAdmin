@@ -76,7 +76,7 @@ public class DormitoryController {
     }
 
     @RequestMapping("/deleteById")
-    public String deleteById(Integer[] ids){
+    public String deleteById(int[] ids){
         dormitoryService.deleteDormitoryById(ids);
         return "redirect:dormitoryList";
     }

@@ -106,4 +106,20 @@
     <update id="updateOldBedRoom" parameterType="PageBeanUI">
         update bedroom set is_flag = 'N' ,stu_id = null where stu_id = #{student.stuId}
     </update>
+
+    <select id="findBedroomByBedRoom" parameterType="BedRoom" resultMap="bedRoomMap">
+        select *from bedroom where bed_id = #{bedId} and is_flag = 'Y'
+    </select>
+
+    <delete id="deleteBedRoomByBedRoom" parameterType="BedRoom">
+        delete from bedroom where bed_id = #{bedId}
+    </delete>
+
+    <select id="findBedroomByIds" parameterType="int" resultMap="bedRoomMap">
+        select *from bedroom where room_id = #{roomId} and is_flag = 'Y'
+    </select>
+
+    <delete id="deleteBedRoomByRoomId" parameterType="int">
+        delete from bedroom where room_id = #{roomId}
+    </delete>
 </mapper>

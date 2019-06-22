@@ -36,7 +36,7 @@ public interface IDormitoryService {
      * 根据id删除
      * @param ids
      */
-    void deleteDormitoryById(Integer[] ids);
+    void deleteDormitoryById(int[] ids);
 
     /**
      * 查询宿舍楼信息
